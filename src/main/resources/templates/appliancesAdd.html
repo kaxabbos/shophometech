@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Добавить</title>
+</head>
+
+<head th:insert="blocks/head :: head"></head>
+
+<body>
+
+<div th:insert="blocks/nav :: nav"></div>
+
+<main class="page project-page mt-3">
+    <section class="portfolio-block project">
+        <div class="container">
+            <div class="heading">
+                <h2>Добавить</h2>
+                <div th:if="${message}" class="d-xl-flex justify-content-xl-center"
+                     style="margin-top: 50px;padding-bottom: 20px;">
+                    <div class="alert alert-warning text-center" role="alert" style="width: 650px;margin-bottom: 0px;">
+                        <span><strong th:text="${message}"></strong></span>
+                    </div>
+                </div>
+            </div>
+            <form style="max-width: 100%;" action="/appliances/add" method="post" enctype="multipart/form-data">
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col">
+                        <h4>Название</h4><input class="form-control" type="text" name="name" required>
+                    </div>
+                    <div class="col">
+                        <h4>Цена</h4><input class="form-control" type="number" name="price" step="0.01" min="0"
+                                            required>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col">
+                        <h4>Категория</h4>
+                        <select class="form-select" name="category">
+                            <option th:each="category : ${categories}" th:value="${category}"
+                                    th:label="${category.name}"></option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <h4>Срок гарантии</h4>
+                        <input class="form-control" type="number" name="warranty" min="0"
+                               placeholder="Введите количество месяцев" required>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col">
+                        <h4>Страна производства</h4><input class="form-control" type="text" name="country" required>
+                    </div>
+                    <div class="col">
+                        <h4>Фирма производства</h4><input class="form-control" type="text" name="firm" required>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col">
+                        <h4>Доступное количество</h4><input class="form-control" type="number" name="quantity" min="0" required>
+                    </div>
+                    <div class="col">
+                        <h4>Дата изготовления</h4><input class="form-control" type="date" name="date" required>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col">
+                        <h4>Скидка (0 = нету)</h4><input class="form-control" type="number" name="discount" min="0" max="100" step="1" required>
+                    </div>
+                    <div class="col">
+                        <h4>Изображение</h4><input class="form-control" type="file" name="file" required>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col">
+                        <button class="btn btn-success" type="submit" style="margin-right: 20px;">Добавить</button>
+                        <button class="btn btn-secondary" type="reset">Очистить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+
+
+
+<div th:insert="blocks/scripts :: scripts"></div>
+
+</body>
+
+</html>

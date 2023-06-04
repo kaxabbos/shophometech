@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Авторизация</title>
+</head>
+
+<head th:insert="blocks/head :: head"></head>
+
+<body>
+
+<div th:insert="blocks/nav :: nav"></div>
+
+<main class="page hire-me-page mt-3">
+    <section class="portfolio-block hire-me">
+        <div class="container">
+            <div class="heading">
+                <h2>Авторизация</h2>
+            </div>
+            <div th:if="${param.error}" class="d-xl-flex justify-content-xl-center" style="margin-top: 50px;padding-bottom: 20px;">
+                <div class="alert alert-warning text-center" role="alert" style="width: 650px;margin-bottom: 0px;">
+                    <span><strong>Неккоректный ввод логина или пароля!</strong></span></div>
+            </div>
+            <form method="post" action="/login">
+                <div class="mb-3">
+                    <label class="form-label">Логин</label>
+                    <input class="form-control" type="text" name="username" placeholder="Введите логин" required></div>
+                <div class="mb-3">
+                    <label class="form-label">Пароль</label>
+                    <input class="form-control" type="password" name="password" placeholder="Введите пароль" required>
+                </div>
+                <div class="d-xl-flex justify-content-xl-center mb-3">
+                    <button class="btn btn-success" type="submit" style="width: 100%;">Войти</button>
+                </div>
+                <div class="d-xl-flex justify-content-xl-center mb-3"><a href="/reg">Регистрироваться</a></div>
+            </form>
+        </div>
+    </section>
+</main>
+
+
+
+<div th:insert="blocks/scripts :: scripts"></div>
+
+</body>
+
+</html>

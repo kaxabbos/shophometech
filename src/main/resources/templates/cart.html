@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Покупки</title>
+</head>
+
+<head th:insert="blocks/head :: head"></head>
+
+<body>
+
+<div th:insert="blocks/nav :: nav"></div>
+
+<main class="page projects-page mt-3">
+    <section class="portfolio-block projects-cards">
+        <div class="container">
+            <div class="heading">
+                <h2>Покупки</h2>
+
+            </div>
+            <form th:each="cart : ${carts}" th:action="'/cart/buy/' + ${cart.id}" method="post"
+                  style="max-width: 100%;margin-bottom: 20px;">
+                <div class="row">
+                    <div class="col-md-6 col-lg-2">
+                        <a th:href="'/appliances/' + ${cart.appliances.id}">
+                            <img class="card-img-top scale-on-hover" th:src="'/img/' + ${cart.appliances.file}"
+                                 alt="Card Image" style="border-radius: 10px;">
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg">
+                        <h6><a th:text="${cart.appliances.name}" th:href="'/appliances/' + ${cart.appliances.id}">Название</a>
+                        </h6>
+                        <span>Категория:&nbsp;</span><a th:text="${cart.appliances.category.name}"
+                                                        th:href="'/search/' + ${cart.appliances.category}">Категория</a>
+                        <br>
+                        <span>Цена:&nbsp;</span><span th:text="${cart.sum}">Цена</span>
+                        <br>
+                        <div th:if="${cart.appliances.discount}">
+                            <span>Скидка:&nbsp;</span><span th:text="${cart.appliances.discount}"></span>
+                            <br>
+                            <span>Цена со скидкой:&nbsp;</span><span th:text="${cart.calculating()}"></span>
+                            <br>
+                        </div>
+                        <span>Доступное количество:&nbsp;</span><span th:text="${cart.quantity}">Доступное количество</span>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-success" type="submit" style="width: 100%;">Заказать</button>
+                            </div>
+                            <div class="col">
+                                <a th:href="'/cart/delete/' + ${cart.id}" class="btn btn-warning" role="button"
+                                   style="width: 100%;">Убрать</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div th:if="${carts.size() > 1}" class="row">
+                <div class="col">
+                    <a href="/cart/buy/all" class="btn btn-success" role="button" style="width: 100%;">Заказать все</a>
+                </div>
+                <div class="col">
+                    <a href="/cart/delete/all" class="btn btn-warning" role="button" style="width: 100%;">Убрать все</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+
+<div th:insert="blocks/scripts :: scripts"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<nav th:fragment="nav" class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="background: linear-gradient(90deg, #56aa1c, #8cd600);">
+    <div class="container">
+        <a class="navbar-brand logo" href="/">ShopHomeTech</a>
+        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav">
+            <span class="visually-hidden">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li th:if="${role == 'ADMIN'}" class="nav-item">
+                    <a class="nav-link" href="/users">Аккаунты</a>
+                </li>
+                <li th:if="${role == 'EMPLOYEE'}" class="nav-item">
+                    <a class="nav-link" href="/appliances/add">Добавить</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/">Бытовая техника</a></li>
+                <li th:if="${role == 'ADMIN' and inStock != 0}" class="nav-item">
+                    <a class="nav-link" href="/stat">Финансовая деятельность</a>
+                </li>
+                <li th:if="${role == 'EMPLOYEE'}" class="nav-item">
+                    <a class="nav-link" href="/ordering">Заказы</a>
+                </li>
+                <li th:if="${role == 'BUYER'}" class="nav-item">
+                    <a class="nav-link" href="/cart">Покупки</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">Контактные данные</a>
+                </li>
+                <li th:if="${role == 'NOT'}" class="nav-item">
+                    <a class="nav-link" href="/login">Авторизация</a>
+                </li>
+                <li th:if="${role == 'NOT'}" class="nav-item">
+                    <a class="nav-link" href="/reg">Регистрация</a>
+                </li>
+                <li th:if="${role != 'NOT'}" class="nav-item">
+                    <a class="nav-link" href="/logout">Разлогиниться</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

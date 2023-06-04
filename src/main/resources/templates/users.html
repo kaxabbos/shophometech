@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Аккаунты</title>
+</head>
+
+<head th:insert="blocks/head :: head"></head>
+
+<body>
+
+<div th:insert="blocks/nav :: nav"></div>
+
+<main class="page project-page mt-3">
+    <section class="portfolio-block project">
+        <div class="container">
+            <div class="heading">
+                <h2>Аккаунты</h2>
+            </div>
+            <div style="max-width: 100%;">
+                <div class="row" style="margin-bottom: 20px;text-align: center;">
+                    <div class="col">
+                        <h4>Данные для входа</h4>
+                    </div>
+                    <div class="col">
+                        <h4>Права доступа</h4>
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col-1"></div>
+                </div>
+            </div>
+            <form th:each="user : ${users}" th:if="${user != actual}" th:action="'/users/update/' + ${user.getId()}" method="post"
+                  style="max-width: 100%;padding: 0px;">
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col">
+                        <input class="form-control" type="text" name="name" th:value="${user.getUsername()}" readonly>
+                    </div>
+                    <div class="col">
+                        <select class="form-select" name="role">
+                            <option th:each="role : ${roles}" th:value="${role}" th:label="${role.name}" th:selected="${role == user.role}"></option>
+                        </select>
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-success" type="submit" style="margin-right: 20px;">Изменить</button>
+                    </div>
+                    <div class="col-1"><a th:href="'/users/delete/' + ${user.id}" class="btn btn-danger" role="button">Удалить</a></div>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+
+
+
+<div th:insert="blocks/scripts :: scripts"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${appliances.name}"></title>
+</head>
+
+<head th:insert="blocks/head :: head"></head>
+
+<body>
+
+<div th:insert="blocks/nav :: nav"></div>
+
+<main class="page project-page mt-3">
+    <section class="portfolio-block project">
+        <div class="container">
+            <div class="heading">
+                <h2 th:text="${appliances.name}">Название</h2>
+            </div>
+            <div class="row">
+                <div class="col"><img th:src="'/img/' + ${appliances.file}" width="100%" style="border-radius: 20px">
+                </div>
+                <div class="col">
+                    <form th:action="'/cart/add/' + ${appliances.id}" method="post" th:if="${role == 'BUYER'}"
+                          style="margin-bottom: 20px;">
+                        <div class="row">
+                            <div class="col">
+                                <input style="margin-right: 20px;" class="form-control" type="number" min="1" step="1"
+                                       th:max="${appliances.quantity}" name="quantity">
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-success" type="submit">Оформить заказ</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div th:if="${role == 'EMPLOYEE'}" style="margin-bottom: 20px;">
+                        <div class="row">
+                            <div class="col">
+                                <a th:href="'/appliances/edit/' + ${appliances.id}" class="btn btn-success"
+                                   role="button"
+                                   style="margin-right: 20px;">Изменить</a>
+                                <a th:href="'/appliances/delete/' + ${appliances.id}" class="btn btn-danger"
+                                   role="button">Удалить</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="row">
+                            <div class="col">
+                                <span>Категория:&nbsp;</span><a th:text="${appliances.category.name}"
+                                                                th:href="'/search/' + ${appliances.category}"></a>
+                                <br>
+                                <span>Цена:&nbsp;</span><span th:text="${appliances.price}"></span>
+                                <br>
+                                <div th:if="${appliances.discount}">
+                                    <span>Скидка:&nbsp;</span><span th:text="${appliances.discount}"></span>
+                                    <br>
+                                </div>
+                                <span>Доступное количество:&nbsp;</span><span th:text="${appliances.quantity}"></span>
+                                <br>
+                                <span>Дата изготовления:&nbsp;</span><span
+                                    th:text="${appliances.date}"></span>
+                                <br>
+                                <span>Срок гарантии:&nbsp;</span><span th:text="${appliances.warranty}"></span>
+                                месяц(ев)
+                                <br>
+                                <span>Страна производства:&nbsp;</span><span
+                                    th:text="${appliances.country}"></span>
+                                <br>
+                                <span>Фирма производитель:&nbsp;</span><span
+                                    th:text="${appliances.firm}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<div th:insert="blocks/scripts :: scripts"></div>
+
+</body>
+
+</html>
